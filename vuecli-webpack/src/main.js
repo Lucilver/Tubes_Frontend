@@ -3,6 +3,7 @@ import App from "./App.vue";
 import vuetify from "@/plugins/vuetify";
 import router from "./router";
 import axios from "axios";
+import "@mdi/font/css/materialdesignicons.css";
 
 Vue.config.productionTip = false;
 

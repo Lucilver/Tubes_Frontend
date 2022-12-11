@@ -1,18 +1,19 @@
 <template>
   <main>
     <v-header dark padless>
-      <v-card flat tile class="black lighten-1 white--text text-right">
-        <div>
-          <v-text class="orange--text text-align-left"> <strong>Kelompok J</strong> </v-text>
-          <span class="mx-5 my-7"></span>
-          <v-btn @click="login" class="my-3 white large orange--text text-right">Login</v-btn>
-          <span class="mx-2 my-4"></span>
-          <v-btn @click="register" class="my-3 orange black--text text-right">Register</v-btn>
-          <span class="mx-5 my-7"></span>
-        </div>
+      <v-card flat tile class="black lighten-1 white--text d-flex pb-3">
+        <v-card class="pa-2 mr-auto black mt-3 ml-5">
+          <v-text class="orange--text"> <strong>Kelompok J</strong> </v-text></v-card
+        >
+        <v-card class="pa-2 black mt-3">
+          <v-btn @click="login" class="grey darken-4 large orange--text text-right">Login</v-btn>
+        </v-card>
+        <v-card class="pa-2 black mt-3 mr-5">
+          <v-btn @click="register" class="orange black--text text-right">Register</v-btn>
+        </v-card>
       </v-card>
     </v-header>
-    <v-carousel height="80vh" dark show-arrows-on-hover draggable="true" hide-delimiter-background class="text-center">
+    <v-carousel height="90vh" dark cycle show-arrows-on-hover draggable="true" hide-delimiter-background class="text-center">
       <v-carousel-item v-for="(data, carindex) in data" :key="carindex" :src="data.src" class="gradient-fill">
         <v-container fill-height>
           <div style="max-width: 1200px">
@@ -22,9 +23,9 @@
 
             <p class="mb-5 orange--text">{{ data.subHeading }}</p>
 
-            <v-btn @click="login" class="my-3 black large orange--text">Login</v-btn>
+            <!-- <v-btn @click="login" class="my-3 black large orange--text">Login</v-btn>
             <span class="mx-2 my-4"></span>
-            <v-btn @click="register" class="my-3 orange black--text">Register</v-btn>
+            <v-btn @click="register" class="my-3 orange black--text">Register</v-btn> -->
           </div>
         </v-container>
       </v-carousel-item>
@@ -32,16 +33,18 @@
     <v-footer dark padless>
       <v-card flat tile class="flex">
         <v-card-title class="black orange--text text-center">
-        <strong class="subheading">Get connected with us on social networks!</strong>
+          <strong class="subheading">Get connected with us on social networks!</strong>
 
-        <v-spacer></v-spacer>
-
-        <v-btn color="white" icon> <v-icon> mdi-facebook </v-icon> </v-btn>
-      </v-card-title>
+          <v-spacer></v-spacer>
+          <v-btn color="orange" icon> <v-icon> mdi-facebook </v-icon> </v-btn>
+          <v-btn color="orange" icon> <v-icon> mdi-instagram </v-icon> </v-btn>
+          <v-btn color="orange" icon> <v-icon> mdi-twitter </v-icon> </v-btn>
+          <v-btn color="orange" icon> <v-icon> mdi-linkedin </v-icon> </v-btn>
+        </v-card-title>
 
         <v-divider></v-divider>
 
-        <v-card-text class="black orange--text text-center"> {{ new Date().getFullYear() }} — <strong>Kelompok J</strong> </v-card-text>
+        <v-card-text class="black orange--text text-center"> {{ new Date().getFullYear() }} — <strong>Created by Alvin Cennanda | Frederik Grayfien Halim | Bernadeta Felicia Astrid</strong> </v-card-text>
       </v-card>
     </v-footer>
   </main>
@@ -93,8 +96,6 @@ export default {
 };
 </script>
 
-
-
 <style>
 .gradient-fill .v-responsive__content {
   background: linear-gradient(to left, rgba(3, 12, 41, 0.8), rgba(5, 11, 31, 0.65));
@@ -103,5 +104,3 @@ export default {
   height: 100vh !important;
 }
 </style>
-
-
