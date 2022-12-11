@@ -34,45 +34,45 @@ const router = new VueRouter({
       component: importComponent("UserRegister"),
     },
 
-    // {
-    //   path: "/",
-    //   component: importComponent("DashboardLayout"),
-    //   children: [
-    //     // Dashboard
-    //     {
-    //       path: "/dashboard",
-    //       name: "Dashboard",
-    //       meta: { title: "Dashboard" },
-    //       component: importComponent("Dashboard"),
-    //     },
-    //     // Courses
-    //     {
-    //       path: "/product",
-    //       name: "Product",
-    //       meta: { title: "Products" },
-    //       component: importComponent("Main/Product"),
-    //     },
-    //     {
-    //       path: "/wishlist",
-    //       name: "Wishlist",
-    //       meta: { title: "Wishlists" },
-    //       component: importComponent("Main/Wishlist"),
-    //     },
-    //     // Users
-    //     {
-    //       path: "/user",
-    //       name: "User",
-    //       meta: { title: "Users" },
-    //       component: importComponent("Main/User"),
-    //     },
-    //     {
-    //       path: "/toko",
-    //       name: "Toko",
-    //       meta: { title: "tokos" },
-    //       component: importComponent("Main/Toko"),
-    //     },
-    //   ],
-    // },
+    {
+      path: "/",
+      component: importComponent("DashboardLayout"),
+      children: [
+        // Dashboard
+        {
+          path: "/dashboard",
+          name: "Dashboard",
+          meta: { title: "Dashboard" },
+          component: importComponent("Dashboard"),
+        },
+        // Courses
+        {
+          path: "/product",
+          name: "Product",
+          meta: { title: "Products" },
+          component: importComponent("Main/Product"),
+        },
+        {
+          path: "/wishlist",
+          name: "Wishlist",
+          meta: { title: "Wishlists" },
+          component: importComponent("Main/Wishlist"),
+        },
+        // Users
+        {
+          path: "/user",
+          name: "User",
+          meta: { title: "Users" },
+          component: importComponent("Main/User"),
+        },
+        {
+          path: "/toko",
+          name: "Toko",
+          meta: { title: "tokos" },
+          component: importComponent("Main/Toko"),
+        },
+      ],
+    },
     {
       path: "*",
       redirect: "/",

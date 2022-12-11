@@ -13,7 +13,7 @@
                   <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
                   <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
                   <v-layout justify-center>
-                    <v-btn class="mr-2" @click="submit" :class="{ 'green darken-1 brown--text': valid, disabled: !valid }">Register</v-btn>
+                    <v-btn class="mr-2" @click="submit" :class="{ 'orange darken-1 brown--text': valid, disabled: !valid }">Register</v-btn>
                     <v-btn @click="clear" class="grey darken-3 white--text">Clear</v-btn>
                   </v-layout>
                   <v-layout justify-center class="pt-3">
@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: "Register",
+  name: "UserRegister",
   data() {
     return {
       load: false,
@@ -79,7 +79,6 @@ export default {
             username: this.username,
             email: this.email,
             password: this.password,
-            status: 0,
           })
           .then((response) => {
             localStorage.setItem("id", response.data.user.id);
@@ -90,7 +89,7 @@ export default {
             this.load = false;
             this.clear();
             this.$router.push({
-              name: "Login",
+              name: "UserLogin",
             });
           })
           .catch((error) => {

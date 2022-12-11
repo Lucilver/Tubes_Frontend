@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <main>
     <v-container fluid fill-height class="position">
       <v-layout flex align-center justify-center>
@@ -32,6 +32,42 @@
 
     <v-snackbar v-model="verified" color="green" timeout="2000" bottom> Berhasil Verifikasi Email </v-snackbar>
   </main>
+</template> -->
+
+<template>
+  <main>
+    <v-container fluid fill-height class="view">
+      <v-layout flex align-center justify-center>
+        <v-card class="d-flex" flat tile>
+          <v-img
+            class="img"
+            width="500"
+            height="450"
+            src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7962.jpg?w=740&t=st=1670783380~exp=1670783980~hmac=07e14766942c2c636a3e0ac9236f84d729997de462ec7bad0029aa682bf8591f"
+          ></v-img>
+        </v-card>
+
+        <v-card class="orange pa-5" width="500" height="450">
+          <h1 class="text-center black orange--text pb-2">Login</h1>
+          <v-card-text class="pt-2">
+            <div>
+              <v-form v-model="valid" ref="form" class="mt-5">
+                <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
+                <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
+                <v-layout justify-center>
+                  <v-btn class="mr-3 mt-5" @click="submit" :class="{ 'black darken-1 orange--text': valid, disabled: !valid }">Login</v-btn>
+                  <v-btn @click="clear" class="grey darken-3 white--text mt-5">Clear</v-btn>
+                </v-layout>
+                <v-layout justify-center class="pt-3 mt-5">
+                  <v-text>Dont have any account? <v-btn @click="register" text color="indigo accent-4">Register</v-btn></v-text>
+                </v-layout>
+              </v-form>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </main>
 </template>
 
 <style>
@@ -40,11 +76,15 @@
   font-family: "Roboto";
 }
 
-.position {
+.view {
   position: absolute;
-  top: 20px;
   left: 0;
   right: 0;
+  background: linear-gradient(black, #ae7622);
+}
+
+.img {
+  background-color: black;
 }
 </style>
 
@@ -59,9 +99,9 @@ export default {
       color: "",
       valid: false,
       password: "",
-      passwordRules: [(v) => !!v || "Password tidak boleh kosong :("],
+      passwordRules: [(v) => !!v || "Password tidak boleh kosong"],
       email: "",
-      emailRules: [(v) => !!v || "E-mail tidak boleh kosong :("],
+      emailRules: [(v) => !!v || "E-mail tidak boleh kosong "],
     };
   },
   methods: {
@@ -103,15 +143,6 @@ export default {
     clear() {
       this.$refs.form.reset(); // clear form login
     },
-    // TampilVerifikasi() {
-    //   if (this.$route.query.verified == "success") {
-    //     this.verified = true;
-    //     this.$router.push("/login");
-    //   }
-    // },
   },
-  // mounted() {
-  //   this.TampilVerifikasi();
-  // },
 };
 </script>
