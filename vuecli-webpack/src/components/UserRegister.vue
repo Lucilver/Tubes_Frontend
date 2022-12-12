@@ -3,8 +3,8 @@
     <v-container fluid fill-height class="position">
       <v-layout flex align-center justify-center>
         <v-flex xs12 sm6 elevation-6>
-          <h1 class="text-center yellow darken-2 white--text pb-2">Register</h1>
-          <v-card class="yellow lighten-4">
+          <h1 class="padding">Register</h1>
+          <v-card class="orange">
             <v-card-text class="pt-4">
               <div>
                 <v-form v-model="valid" ref="form" class="white--text">
@@ -42,9 +42,16 @@
 
 .position {
   position: absolute;
-  top: 20px;
   left: 0;
   right: 0;
+  background: linear-gradient(black, #ae7622);
+}
+
+.padding{
+    top: 20px;
+    text-align: center;
+    background-color: black;
+    color: orange;
 }
 </style>
 
