@@ -3,8 +3,8 @@
     <v-container fluid fill-height class="position">
       <v-layout flex align-center justify-center>
         <v-flex xs12 sm6 elevation-6>
-          <h1 class="text-center yellow darken-2 white--text pb-2">Register</h1>
-          <v-card class="yellow lighten-4">
+          <h1 class="padding">Register</h1>
+          <v-card class="orange">
             <v-card-text class="pt-4">
               <div>
                 <v-form v-model="valid" ref="form" class="white--text">
@@ -13,7 +13,7 @@
                   <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
                   <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
                   <v-layout justify-center>
-                    <v-btn class="mr-2" @click="submit" :class="{ 'green darken-1 brown--text': valid, disabled: !valid }">Register</v-btn>
+                    <v-btn class="mr-2" @click="submit" :class="{ 'orange darken-1 brown--text': valid, disabled: !valid }">Register</v-btn>
                     <v-btn @click="clear" class="grey darken-3 white--text">Clear</v-btn>
                   </v-layout>
                   <v-layout justify-center class="pt-3">
@@ -42,15 +42,22 @@
 
 .position {
   position: absolute;
-  top: 20px;
   left: 0;
   right: 0;
+  background: linear-gradient(black, #ae7622);
+}
+
+.padding{
+    top: 20px;
+    text-align: center;
+    background-color: black;
+    color: orange;
 }
 </style>
 
 <script>
 export default {
-  name: "Register",
+  name: "UserRegister",
   data() {
     return {
       load: false,
@@ -79,7 +86,6 @@ export default {
             username: this.username,
             email: this.email,
             password: this.password,
-            status: 0,
           })
           .then((response) => {
             localStorage.setItem("id", response.data.user.id);
@@ -90,7 +96,7 @@ export default {
             this.load = false;
             this.clear();
             this.$router.push({
-              name: "Login",
+              name: "UserLogin",
             });
           })
           .catch((error) => {

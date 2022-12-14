@@ -57,18 +57,18 @@ export default {
       data: [
         {
           src: "https://img.freepik.com/free-vector/happy-people-shopping-online_74855-5865.jpg?w=2000",
-          heading: " Quasha ",
+          heading: " Shopedia ",
           subHeading:
             "Infographic hypotheses influencer user experience Long madel ture gen-z paradigm shift client partner network product seilans solve management influencer analytics leverage virality. incubator seed round massmarket. buyer agile development growth hacking business-to-consumer ecosystem ",
         },
         {
           src: "https://freeillustrations.xyz/wp-content/uploads/2020/12/E-Commerce-Illustration-Kit@4x.png",
-          heading: " Quasha",
+          heading: " Shopedia ",
           subHeading: "Litora a interdum primis. Lectus facilisi sit cum arcu aliquam velit imperdiet sapien suspendisse at vel facilisis. Facilisis metus, curae; nibh mi orci et. Fringilla sociis magna rutrum bibendum arcu.",
         },
         {
           src: "https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?w=2000",
-          heading: " Quasha ",
+          heading: " Shopedia ",
           subHeading:
             "Tellus cum turpis natoque id justo interdum tincidunt faucibus aptent congue pellentesque. Proin luctus orci netus! Scelerisque parturient cursus donec parturient et, luctus aptent habitant aliquet felis. Sapien placerat ultricies.",
         },
