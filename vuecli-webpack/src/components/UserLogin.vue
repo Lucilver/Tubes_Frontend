@@ -12,8 +12,21 @@
             <v-card-text class="pt-4">
               <div>
                 <v-form v-model="valid" ref="form">
-                  <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
-                  <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
+                  <v-text-field 
+                    label="E-mail" 
+                    v-model="email" 
+                    :rules="emailRules" 
+                    required>
+                  </v-text-field>
+                  
+                  <v-text-field 
+                    label="Password" 
+                    v-model="password" 
+                    type="password" 
+                    min="8" 
+                    :rules="passwordRules" 
+                    counter required>
+                  </v-text-field>
                   <v-layout justify-center>
                     <v-btn class="mr-2" @click="submit" :class="{ 'green darken-1 white--text': valid, disabled: !valid }">Login</v-btn>
                     <v-btn @click="clear" class="grey darken-3 white--text">Clear</v-btn>

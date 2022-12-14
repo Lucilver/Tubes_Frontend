@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard">
         <v-navigation-drawer class="fullheight" width="256" v-model="drawer"
-        absolute temporary color="grey lighten-5">
+        absolute temporary color="orange darken-5">
         <v-list-item>
             <v-list-item-content>
                 <v-list-item-title class="title">Kelompok J</v-list-item-title>
@@ -26,7 +26,7 @@
             </v-list-item>
         </v-list>
         </v-navigation-drawer>
-        <v-app-bar color="red lighten-3" dark>
+        <v-app-bar color="orange darken-5">
             <v-app-bar-nav-icon
             @click="drawer = true"
             color="white"></v-app-bar-nav-icon>
@@ -45,7 +45,11 @@
                 drawer: false,
             group: null,
                 items:[
-                    {title: "Dashboard", to:"/"},
+                    {title: "Dashboard", to:"/dashboard"},
+                    { title: "Toko", to: "/toko" },
+                    { title: "Product", to: "/product" },
+                    { title: "Wishlist", to: "/wishlist" },
+                    
                 ],
             };
         },
