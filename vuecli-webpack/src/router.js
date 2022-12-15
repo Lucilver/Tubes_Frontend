@@ -13,7 +13,7 @@ const router = new VueRouter({
   routes: [
     //Homepage
     {
-      path: "/",
+      path: "/home",
       name: "Home",
       meta: { title: "Home" },
       component: importComponent("Home"),
@@ -80,28 +80,14 @@ const router = new VueRouter({
   ],
 });
 
-// router.beforeEach((to, from, next) => {
-//   document.title = to.meta.title;
-//   if (to.name !== "UserLogin" && localStorage.getItem("token") == null && to.name !== "UserRegister") {
-//     next({ name: "UserLogin" });
-//   } else {
-//     next();
-//   }
-// });
-
 router.beforeEach((to, from, next) => {
+  if (to.name != "UserLogin" && localStorage.getItem("token") == null && to.name != "UserRegister" && to.name != "Home") {
+    next("home");
+    document.to.meta.title = "Home";
+  }
+
   document.title = to.meta.title;
   next();
 });
-
-// router.beforeEach((to, from, next) => {
-//   if (to.name != "UserLogin" && localStorage.getItem("token") == null && to.name != "UserRegister" && to.name != "Home") {
-//     next("home");
-//     document.to.meta.title = "Home";
-//   }
-
-//   document.title = to.meta.title;
-//   next();
-// });
 
 export default router;

@@ -47,11 +47,11 @@
   background: linear-gradient(black, #ae7622);
 }
 
-.padding{
-    top: 20px;
-    text-align: center;
-    background-color: black;
-    color: orange;
+.padding {
+  top: 20px;
+  text-align: center;
+  background-color: black;
+  color: orange;
 }
 </style>
 
