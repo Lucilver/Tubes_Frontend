@@ -1,208 +1,322 @@
 <template>
     <v-main class="list">
-        <v-card>
-            <v-list-item>
-                <v-list-item-avatar color="grey"> 
-                    <img src="https://i.pinimg.com/736x/c3/e2/54/c3e254a97de0c880247128da1d2118c5.jpg" alt="John">
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title class="headline">Product</v-list-item-title>
-                    <v-list-item-subtitle>Kelompok J</v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>
+        <h3 class="text-h3" font-weight-medium mb-5> Produk Jualan </h3>
+
+        <v-card class="grey lighten-3">
             <v-card-title>
                 <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  outlined
-                  hide 
-                  details 
-                  style="margin-top: 30px"
-                ></v-text-field>
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details>
+                </v-text-field>
+
                 <v-spacer></v-spacer>
-                <v-btn color="success" dark @click="dialog = true"> Tambah </v-btn>
+
+                <v-btn color="green darken-4" dark @click="dialog = true">Jual</v-btn>
+
             </v-card-title>
-        </v-card>
-        <v-card>
-            <v-data-table :headers="headers" :items="todos" :search="search">
-                <template v-slot:[`item.calories`]="{ item }">
-                    <span v-if="(item.calories >= 400)">
-                        <v-btn rounded color="red"> {{item.calories}} </v-btn>
-                    </span>
-                    <span v-else-if="(item.calories >= 300) && (item.calories < 400)">
-                        <v-btn rounded color="yellow"> {{item.calories}}</v-btn>
-                    </span>
-                    <span v-else>
-                        <v-btn rounded color="green"> {{item.calories}} </v-btn>
-                    </span>
-                </template>
-                <template v-slot:[`item.actions`]="{ item }">
-                    <v-btn icon color="blue"  @click="editItem(item)"> <v-icon>mdi-pencil</v-icon> </v-btn>
-                    <v-btn icon color="red"  @click="deleteItem(item)"> <v-icon>mdi-delete</v-icon> </v-btn>
+            <v-data-table :headers="headers" :items="products" :search="search">
+                <template v-slot:[`item.actions`] = "{ item }">
+                    <v-btn small class="mr-2" @click="editHandler(item)"> <v-icon color="green darken-4">mdi-pencil</v-icon> </v-btn>
+                    <v-btn small class="mr-2" @click="deleteHandler(item.id)"> <v-icon color="red accent-4">mdi-delete</v-icon> </v-btn>
+                    <v-btn small class="light-blue darken-4" @click="addToCart(item)"><v-icon color="white">mdi-cart</v-icon></v-btn>
                 </template>
             </v-data-table>
         </v-card>
-        <v-dialog v-model="dialog" persistent max-width="600px">
-        <v-card v-model="valid">
-            <v-card-title>
-                <span class="headline"> Makanan List </span>
-            </v-card-title>
-            <v-card-text>
-                <v-container>
-                    <v-text-field
-                      v-model="listMakanan.name"
-                      label="Name"
-                      required 
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="listMakanan.calories"
-                      label="Calories"
-                      required 
-                    ></v-text-field>
 
-                    <v-textarea
-                      v-model="listMakanan.note"
-                      label="Note"
-                      required 
-                    ></v-textarea>
-                    <v-select
-                      v-model="listMakanan.status"
-                      :items="[`On Process`, `Ready`, `Delivery`]"
-                      label="Status"
-                      required 
-                    ></v-select>
-                </v-container>
-            </v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="cancel"> Cancel </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-            </v-card-actions>
-        </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
+        <v-dialog v-model="dialog" persistent max-width="700px" >
+            <v-card class="grey lighten-3">
+                <v-card-title>
+                    <span class="headline">{{ formTitle }} Jualan</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-text-field v-model="form.nama_barang" label="Nama Barang" required></v-text-field>
+                        <v-text-field v-model="form.harga_barang" label="Harga Barang" required></v-text-field>
+                        <v-text-field v-model="form.jumlah" label="Jumlah Barang" required></v-text-field>
+                    </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red darken-1" text @click="cancel"> Cancel </v-btn>
+                    <v-btn color="green darken-1" text @click="setForm"> Save </v-btn>
+                </v-card-actions>
             </v-card>
-          </v-dialog>
+        </v-dialog>
+
+        <v-dialog v-model="dialogConfirm" persistent max-width="327px">
+            <div class="text-center">
+                <v-sheet class="px-7 pt-7 pb-4 mx-auto text-center d-inline-block" color="blue-grey darken-3" dark >
+                    <div class="grey--text text--lighten-1 text-body-2 mb-4">
+                        Yakin ingin hapus barang jualan ini?
+                    </div>
+
+                    <v-btn plain color="blue darken-1" @click="dialogConfirm = false">No</v-btn>
+                    <v-btn plain color="blue darken-1" @click="deleteData">Yes</v-btn>
+                </v-sheet> 
+            </div>
+        </v-dialog>
+
+        <!-- <v-dialog v-model="dialogAddToCart" persistent max-width="500px">
+            <v-card>
+                <v-card-title class="headline">Tambahkan barang ini ke Wishlist?</v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="dialogAddToCart = false">Cancel</v-btn>
+                    <v-btn color="blue darken-1" text @click="addToCart">OK</v-btn>
+                    <v-spacer></v-spacer>
+                </v-card-actions>
+            </v-card>
+        </v-dialog> -->
+
+        <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
+            {{ error_message }}
+        </v-snackbar>
+
     </v-main>
 </template>
 
 <script>
-export default {
-    name: "ListItem",
-    data() {
-        return{
-            search: null,
-            dialog: false,
-            headers: [
-                {
-                    text: "Nama Barang",
-                    align: "start",
-                    sortable: true,
-                    value: "namaBarang",
+    export default {
+        name: "List",
+        data(){
+            return {
+                inputType: 'Tambah',
+                load: false,
+                snackbar: false,
+                error_message: '',
+                color: '',
+                search: null,
+                idUser: 0,
+                dialog: false,
+                dialogConfirm: false,
+                dialogAddToCart: false,
+                tempCart: {
+                    id_barang: null,
+                    id_user: null,
+                    namaBarang_wish: null,
+                    hargaBarang_wish: null
                 },
-                { text: "Harga Barang", value: "hargaBarang" },
-                { text: "Jumlah", value: "jumlah" },
-                { text: "Actions", value: "actions" },
-            ],
-            editedIndex: -1,
-            todos: [
-                {
-                    name: "Fried Rice",
-                    calories: "120",
-                    note: "Tidak Pake Cabe",
-                    status: "On Process",
+                headers: [
+                    {
+                        text: "Nama Barang",
+                        align: "start",
+                        sortable: true,
+                        value: "nama_barang",
+                    },
+                    { text: "Harga Barang", value: 'harga_barang' },
+                    { text: "Jumlah", value: 'jumlah' },
+                    { text: "Actions", value: 'actions' },
+                ],
+                product: new FormData,
+                products: [],
+                wishlist: [],
+                form: { 
+                    nama_barang: null,
+                    harga_barang: null,
+                    jumlah: null,
                 },
-                {
-                    name: "Dessert",
-                    calories: "300",
-                    note: "Tambah Alat Makan",
-                    status: "Ready",
-                },
-                {
-                    name: "Ice Cream",
-                    calories: "450",
-                    note: "Rasa coklat dan stroberi",
-                    status: "Delivery",
-                },
-            ],
-            listMakanan: {
-                name: null,
-                calories: null,
-                note: null,
-                status: null,
-            },
-            defaultItem: {
-                name: null,
-                calories: null,
-                note: null,
-                status: null,
-            },
-        };
-    },
-    
-    methods: {
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.todos[this.editedIndex], this.listMakanan)
-            } else {
-                this.todos.push(this.listMakanan)
-            }
-            this.resetForm();
-            this.dialog = false;
-        },
-        cancel() {
-            this.dialog = false
-            this.$nextTick(() => {
-                this.listMakanan = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-            })
-            this.resetForm();
-        },
-        editItem (item) {
-            this.editedIndex = this.todos.indexOf(item)
-            this.listMakanan = Object.assign({}, item)
-            this.dialog = true
-        },
-        deleteItem (item) {
-            this.editedIndex = this.todos.indexOf(item)
-            this.listMakanan = Object.assign({}, item)
-            this.dialogDelete = true
-        },
-        deleteItemConfirm () {
-            this.todos.splice(this.editedIndex, 1)
-            this.closeDelete()
-        },
-        closeDelete () {
-            this.dialogDelete = false
-            this.$nextTick(() => {
-            this.listMakanan = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-            })
-        },
-        resetForm() {
-            this.listMakanan = {
-                task: null,
-                priority: null,
-                note: null,
-                status: null,
+                deleteId: '',
+                editId: ''
             };
         },
-    },
-};
+        methods: {
+            setForm() {
+                if(this.inputType !== 'Tambah'){
+                    this.update();
+                }
+                else{
+                    this.save();
+                }
+            },
+            // Read Data Product
+            readData() {
+                var url = this.$api + '/product';
+                this.$http.get(url, {
+                    headers: {
+                        'Authorization' : 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    this.products = response.data.data;
+                })
+            },
+
+            addToCart(item){
+                this.tempCart.id_barang = item.id; 
+                this.tempCart.id_user = this.idUser;
+                this.tempCart.namaBarang_wish = item.nama_barang;
+                this.tempCart.hargaBarang_wish = item.harga_barang;
+                // console.log(this.id);
+                console.log(this.tempCart.hargaBarang_wish);
+                console.log(this.tempCart.namaBarang_wish);
+
+                var url = this.$api + '/wishlist/'
+                this.load = true;
+                this.$http.post(url, this.tempCart, {
+                    headers: {
+                        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+                    }
+                }).then(response => {
+                    this.error_message = response.data.message;
+                    this.color = "green";
+                    this.snackbar = true;
+                    this.load = true;
+                    this.dialogAddToCart = false;
+                    this.readData();
+                }).catch(error => {
+                    this.error_message = error.response.data.message;
+                    this.color = "red";
+                    this.snackbar = true;
+                    this.load = false;
+                });
+            },
+
+            // CartHandler(item){
+            //     // this.tempCart.id_user = this.idUser;
+            //     // this.tempCart.id_barang = item.id;
+            //     // this.tempCart.namaBarang_wish = item.nama_barang;
+            //     // this.tempCart.hargaBarang_wish = item.harga_barang;
+            //     // console.log(this.tempCart.id_barang);
+            //     // this.dialogAddToCart = true;
+            //     this.addToCart(item);
+            // },
+
+            save(){
+                this.product.append('nama_barang', this.form.nama_barang);
+                this.product.append('harga_barang', this.form.harga_barang);
+                this.product.append('jumlah', this.form.jumlah);
+
+                var url = this.$api + '/product/'
+                this.load = true;
+                this.$http.post(url, this.product, {
+                    headers: {
+                        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+                    }
+                }).then(response => {
+                    this.error_message = response.data.message;
+                    this.color = "green";
+                    this.snackbar = true;
+                    this.load = true;
+                    this.close();
+                    this.readData();
+                    this.resetForm();
+                }).catch(error => {
+                    this.error_message = error.response.data.message;
+                    this.color = "red";
+                    this.snackbar = true;
+                    this.load = false;
+                });
+            },
+
+            update() {
+                let newData = {
+                    nama_barang : this.form.nama_barang,
+                    harga_barang : this.form.harga_barang,
+                    jumlah : this.form.jumlah
+                };
+                var url = this.$api + '/product/' + this.editId;
+                this.load = true;
+                this.$http.put(url, newData, {
+                    headers: {
+                        'Authorization' : 'Bearer ' +localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    this.error_message = response.data.message;
+                    this.color = "green";
+                    this.snackbar = true;
+                    this.load = false;
+                    this.close();
+                    this.readData();
+                    this.resetForm();
+                    this.inputType = 'Tambah';
+                }).catch(error => {
+                    this.error_message = error.response.data.message;
+                    this.color = "red";
+                    this.snackbar = true;
+                    this.load = false;
+                });
+            },
+
+            deleteData(){
+                // Menghapus Data
+                var url = this.$api + '/product/' + this.deleteId;
+                this.load = true;
+                this.$http.delete(url, {
+                    headers: {
+                        'Authorization' : 'Bearer ' +localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    this.error_message = response.data.message;
+                    this.color = "green";
+                    this.snackbar = true;
+                    this.load = false;
+                    this.close();
+                    this.readData();
+                    this.resetForm();
+                    this.inputType = "Tambah";
+                }).catch(error => {
+                    this.error_message = error.response.data.message;
+                    this.color = "red";
+                    this.snackbar = true;
+                    this.load = false;
+                });
+            },
+
+            editHandler(item) {
+                this.inputType = 'Edit';
+                this.editId = item.id;
+                this.form.nama_barang = item.nama_barang;
+                this.form.harga_barang = item.harga_barang;
+                this.form.jumlah = item.jumlah;
+                this.dialog = true;
+            },
+
+            deleteHandler(id) {
+                this.deleteId = id;
+                this.dialogConfirm = true;
+            },
+
+            close(){
+                this.dialog = false;
+                this.inputType = 'Tambah';
+                this.dialogConfirm = false;
+                this.dialogAddToCart = false;
+                this.readData();
+            },
+
+            cancel() {
+                this.resetForm();
+                this.readData();
+                this.dialog = false;
+                this.dialogConfirm = false;
+                this.inputType = 'Tambah';
+            },
+
+            resetForm(){
+                this.form = {
+                    nama_barang: null,
+                    harga_barang: null,
+                    jumlah: null
+                };
+            },
+
+            // addToCart(item){
+            //     this.dialog = true;
+            // },
+        },
+
+        computed: {
+            formTitle() {
+                return this.inputType;
+            },
+        },
+
+        mounted() {
+            this.readData();
+            this.idUser = localStorage.getItem('id');
+        },
+    };
 </script>
-<style>
-  .text {
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-size: 40px;
-    font-style: italic;
-  }
-</style>
