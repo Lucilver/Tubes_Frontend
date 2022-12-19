@@ -4,7 +4,7 @@
       <v-alert outlined color="orange">
         <v-list-item>
           <v-list-item-avatar>
-            <img src="https://st2.depositphotos.com/50337402/47106/v/600/depositphotos_471063438-stock-illustration-add-basket-gold-plated-metalic.jpg" />
+            <img src="https://cdn.create.vista.com/api/media/medium/471208326/stock-vector-app-store-gold-plated-metalic?token=" />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="headline">Toko</v-list-item-title>
