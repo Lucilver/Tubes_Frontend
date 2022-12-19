@@ -1,23 +1,24 @@
 <template>
-  <v-main>
+  <v-main class="list">
     <v-card dark>
       <v-alert outlined color="orange">
         <v-list-item>
-          <v-list-item-avatar>
+          <v-list-item-avatar color="grey">
             <img src="https://st2.depositphotos.com/50337402/47106/v/600/depositphotos_471063438-stock-illustration-add-basket-gold-plated-metalic.jpg" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="headline">Toko</v-list-item-title>
+            <v-list-item-title class="headline">Delivery</v-list-item-title>
             <v-list-item-subtitle>Kelompok J</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-card-title>
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" outlined style="margin-top: 30px"></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" outlined hide details style="margin-top: 30px"></v-text-field>
           <v-spacer></v-spacer>
-          <v-btn class="white--text" color="orange" @click="dialog = true"> Tambah </v-btn>
+          <v-btn class="white--text" color="orange" dark @click="dialog = true"> Tambah </v-btn>
         </v-card-title>
+
         <v-card>
-          <v-data-table :headers="headers" :items="tokos" :search="search">
+          <v-data-table :headers="headers" :items="deliverys" :search="search">
             <template v-slot:[`item.actions`]="{ item }">
               <v-btn small class="mr-2 light-blue darken-4" @click="editHandler(item)"> <v-icon color="white">mdi-pencil</v-icon> </v-btn>
               <v-btn small class="mr-2 red darken-4" @click="deleteHandler(item.id)"> <v-icon color="white">mdi-delete</v-icon> </v-btn>
@@ -29,13 +30,16 @@
     <v-dialog v-model="dialog" persistent max-width="700px">
       <v-card class="grey lighten-3">
         <v-card-title>
-          <span class="headline">{{ formTitle }} Toko</span>
+          <span class="headline">{{ formTitle }} Jualan</span>
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field v-model="form.nama_toko" label="Nama Toko" required></v-text-field>
-            <v-text-field v-model="form.alamat_toko" label="Alamat Toko" required></v-text-field>
-            <v-text-field v-model="form.jenis_toko" label="Jenis Toko" required></v-text-field>
+            <v-text-field v-model="form.tujuanPengiriman" label="Tujuan Pengiriman" required></v-text-field>
+
+            <v-text-field v-model="form.jenisPengiriman" label="Jenis Pengiriman" required></v-text-field>
+
+            <v-text-field v-model="form.lamaPengiriman" label="Lama Pengiriman" required></v-text-field>
+            <v-text-field v-model="form.harga" label="Harga" required></v-text-field>
           </v-container>
         </v-card-text>
 
@@ -50,28 +54,23 @@
     <v-dialog v-model="dialogConfirm" persistent max-width="400px">
       <div class="text-center">
         <v-sheet class="px-7 pt-7 pb-4 mx-auto text-center" dark>
-          <div class="orange--text text--lighten-1 text-body-2 mb-4">Yakin ingin hapus Toko ini?</div>
+          <div class="orange--text text--lighten-1 text-body-2 mb-4">Yakin ingin hapus pengiriman ini?</div>
 
           <v-btn plain color="red" @click="dialogConfirm = false">No</v-btn>
           <v-btn plain color="green" @click="deleteData">Yes</v-btn>
         </v-sheet>
       </div>
     </v-dialog>
+
     <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
       {{ error_message }}
     </v-snackbar>
   </v-main>
 </template>
 
-<style>
-/* * {
-  color: orange;
-} */
-</style>
-
 <script>
 export default {
-  name: "Toko",
+  name: "List",
   data() {
     return {
       inputType: "Tambah",
@@ -85,21 +84,23 @@ export default {
       dialogConfirm: false,
       headers: [
         {
-          text: "Nama Toko",
+          text: "Tujuan Pengiriman",
           align: "start",
           sortable: true,
-          value: "nama_toko",
+          value: "tujuanPengiriman",
         },
-        { text: "Alamat Toko", value: "alamat_toko" },
-        { text: "Jenis Toko", value: "jenis_toko" },
+        { text: "Jenis Pengiriman", value: "jenisPengiriman" },
+        { text: "Lama Pengiriman", value: "lamaPengiriman" },
+        { text: "Harga", value: "harga" },
         { text: "Actions", value: "actions" },
       ],
-      toko: new FormData(),
-      tokos: [],
+      delivery: new FormData(),
+      deliverys: [],
       form: {
-        nama_toko: null,
-        alamat_toko: null,
-        jenis_toko: null,
+        tujuanPengiriman: null,
+        jenisPengiriman: null,
+        lamaPengiriman: null,
+        harga: null,
       },
       deleteId: "",
       editId: "",
@@ -115,7 +116,7 @@ export default {
     },
     // Read Data Product
     readData() {
-      var url = this.$api + "/toko";
+      var url = this.$api + "/delivery";
       this.$http
         .get(url, {
           headers: {
@@ -123,19 +124,20 @@ export default {
           },
         })
         .then((response) => {
-          this.tokos = response.data.data;
+          this.deliverys = response.data.data;
         });
     },
 
     save() {
-      this.toko.append("nama_toko", this.form.nama_toko);
-      this.toko.append("alamat_toko", this.form.alamat_toko);
-      this.toko.append("jenis_toko", this.form.jenis_toko);
+      this.delivery.append("tujuanPengiriman", this.form.tujuanPengiriman);
+      this.delivery.append("jenisPengiriman", this.form.jenisPengiriman);
+      this.delivery.append("lamaPengiriman", this.form.lamaPengiriman);
+      this.delivery.append("harga", this.form.harga);
 
-      var url = this.$api + "/toko";
+      var url = this.$api + "/delivery/";
       this.load = true;
       this.$http
-        .post(url, this.toko, {
+        .post(url, this.delivery, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -159,11 +161,12 @@ export default {
 
     update() {
       let newData = {
-        nama_toko: this.form.nama_toko,
-        alamat_toko: this.form.alamat_toko,
-        jenis_toko: this.form.jenis_toko,
+        tujuanPengiriman: this.form.tujuanPengiriman,
+        jenisPengiriman: this.form.jenisPengiriman,
+        lamaPengiriman: this.form.lamaPengiriman,
+        harga: this.form.harga,
       };
-      var url = this.$api + "/toko/" + this.editId;
+      var url = this.$api + "/delivery/" + this.editId;
       this.load = true;
       this.$http
         .put(url, newData, {
@@ -191,7 +194,7 @@ export default {
 
     deleteData() {
       // Menghapus Data
-      var url = this.$api + "/toko/" + this.deleteId;
+      var url = this.$api + "/delivery/" + this.deleteId;
       this.load = true;
       this.$http
         .delete(url, {
@@ -204,7 +207,7 @@ export default {
           this.color = "green";
           this.snackbar = true;
           this.load = false;
-          this.tokos.splice(this.index, 1);
+          this.deliverys.splice(this.index, 1);
           this.close();
           this.readData();
           this.resetForm();
@@ -221,9 +224,10 @@ export default {
     editHandler(item) {
       this.inputType = "Edit";
       this.editId = item.id;
-      this.form.nama_toko = item.nama_toko;
-      this.form.alamat_toko = item.alamat_toko;
-      this.form.jenis_toko = item.jenis_toko;
+      this.form.tujuanPengiriman = item.tujuanPengiriman;
+      this.form.jenisPengiriman = item.jenisPengiriman;
+      this.form.lamaPengiriman = item.lamaPengiriman;
+      this.form.harga = item.harga;
       this.dialog = true;
     },
 
@@ -236,7 +240,6 @@ export default {
       this.dialog = false;
       this.inputType = "Tambah";
       this.dialogConfirm = false;
-      this.dialogAddToCart = false;
       this.readData();
     },
 
@@ -250,15 +253,12 @@ export default {
 
     resetForm() {
       this.form = {
-        nama_toko: null,
-        alamat_toko: null,
-        jenis_toko: null,
+        tujuanPengiriman: null,
+        jenisPengiriman: null,
+        lamaPengiriman: null,
+        harga: null,
       };
     },
-
-    // addToCart(item){
-    //     this.dialog = true;
-    // },
   },
 
   computed: {

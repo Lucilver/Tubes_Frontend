@@ -45,7 +45,7 @@ const router = new VueRouter({
           meta: { title: "Dashboard" },
           component: importComponent("Dashboard"),
         },
-        // Courses
+
         {
           path: "/product",
           name: "Product",
@@ -53,10 +53,10 @@ const router = new VueRouter({
           component: importComponent("Main/Product"),
         },
         {
-          path: "/wishlist",
-          name: "Wishlist",
-          meta: { title: "Wishlists" },
-          component: importComponent("Main/Wishlist"),
+          path: "/delivery",
+          name: "Delivery",
+          meta: { title: "Deliverys" },
+          component: importComponent("Main/Delivery"),
         },
         // Users
         {

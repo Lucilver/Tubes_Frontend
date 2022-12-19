@@ -20,12 +20,7 @@
             <div class="text-md-h2 mb-3 text-sm-h3 text-h5 font-weight-black orange--text">
               {{ data.heading.toUpperCase() }}
             </div>
-
             <p class="mb-5 orange--text">{{ data.subHeading }}</p>
-
-            <!-- <v-btn @click="login" class="my-3 black large orange--text">Login</v-btn>
-            <span class="mx-2 my-4"></span>
-            <v-btn @click="register" class="my-3 orange black--text">Register</v-btn> -->
           </div>
         </v-container>
       </v-carousel-item>
@@ -57,28 +52,22 @@ export default {
       data: [
         {
           src: "https://img.freepik.com/free-vector/happy-people-shopping-online_74855-5865.jpg?w=2000",
-          heading: " Shopedia ",
+          heading: "Quasha",
           subHeading:
             "Infographic hypotheses influencer user experience Long madel ture gen-z paradigm shift client partner network product seilans solve management influencer analytics leverage virality. incubator seed round massmarket. buyer agile development growth hacking business-to-consumer ecosystem ",
         },
         {
           src: "https://freeillustrations.xyz/wp-content/uploads/2020/12/E-Commerce-Illustration-Kit@4x.png",
-          heading: " Shopedia ",
+          heading: "Quasha",
           subHeading: "Litora a interdum primis. Lectus facilisi sit cum arcu aliquam velit imperdiet sapien suspendisse at vel facilisis. Facilisis metus, curae; nibh mi orci et. Fringilla sociis magna rutrum bibendum arcu.",
         },
         {
           src: "https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?w=2000",
-          heading: " Shopedia ",
+          heading: "Quasha",
           subHeading:
             "Tellus cum turpis natoque id justo interdum tincidunt faucibus aptent congue pellentesque. Proin luctus orci netus! Scelerisque parturient cursus donec parturient et, luctus aptent habitant aliquet felis. Sapien placerat ultricies.",
         },
       ],
-      // icons: [
-      //   'mdi-facebook',
-      //   'mdi-twitter',
-      //   'mdi-linkedin',
-      //   'mdi-instagram',
-      // ],
     };
   },
   methods: {

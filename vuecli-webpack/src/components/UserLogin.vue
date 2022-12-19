@@ -29,6 +29,10 @@
             </div>
           </v-card-text>
         </v-card>
+        <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
+          {{ error_message }}
+        </v-snackbar>
+        <v-snackbar v-model="success" color="green" timeout="2000" bottom> Berhasil Verifikasi Email </v-snackbar>
       </v-layout>
     </v-container>
   </main>
@@ -104,8 +108,18 @@ export default {
         name: "UserRegister",
       });
     },
+
+    showVerified() {
+      if (this.$route.query.verified == "success") {
+        this.success = true;
+        this.$router.push("/login");
+      }
+    },
     clear() {
       this.$refs.form.reset(); // clear form login
+    },
+    mounted() {
+      this.showVerified();
     },
   },
 };
