@@ -40,9 +40,9 @@
         </v-card-title>
         <v-card-text>
           <v-container>
+            <v-text-field v-model="form.username" label="Username" required></v-text-field>
             <v-text-field v-model="form.name" label="Nama User" required></v-text-field>
             <v-text-field v-model="form.email" label="Email User" required></v-text-field>
-            <v-text-field v-model="form.username" label="Email User" required></v-text-field>
           </v-container>
         </v-card-text>
 

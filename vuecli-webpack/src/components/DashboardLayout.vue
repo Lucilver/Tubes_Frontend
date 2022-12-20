@@ -13,7 +13,10 @@
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" link color="light-blue darken-4" tag="router-link" :to="item.to">
           <v-list-item-content>
-            <v-list-item class="text-h6 orange--text">{{ item.title }}</v-list-item>
+            <v-list-item class="text-h6 orange--text">
+              <v-icon class="mr-2" color="orange">{{ item.icon }}</v-icon
+              >{{ item.title }}
+            </v-list-item>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -39,11 +42,11 @@ export default {
       users: [],
       drawer: false,
       items: [
-        { title: "Dashboard", to: "/dashboard" },
-        { title: "Toko", to: "/toko" },
-        { title: "Product", to: "/product" },
-        { title: "Delivery", to: "/delivery" },
-        { title: "User", to: "/user" },
+        { title: "Dashboard", to: "/dashboard", icon: "mdi-view-dashboard" },
+        { title: "Toko", to: "/toko", icon: "mdi-store" },
+        { title: "Produk", to: "/product", icon: "mdi-shopping" },
+        { title: "Pengiriman", to: "/delivery", icon: "mdi-truck-delivery" },
+        { title: "User", to: "/user", icon: "mdi-shield-account" },
       ],
     };
   },

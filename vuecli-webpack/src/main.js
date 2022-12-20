@@ -7,7 +7,8 @@ import axios from "axios";
 Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios; // code standar untuk menggunakan axios
-Vue.prototype.$api = "http://127.0.0.1:8000/api"; // link backend
+// Vue.prototype.$api = "http://127.0.0.1:8000/api";
+Vue.prototype.$api = "https://backend.quasha.my.id/api";
 
 new Vue({
   vuetify,

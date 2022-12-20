@@ -7,7 +7,7 @@
             <img src="https://st2.depositphotos.com/50337402/47106/v/600/depositphotos_471063438-stock-illustration-add-basket-gold-plated-metalic.jpg" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="headline">Product</v-list-item-title>
+            <v-list-item-title class="headline">Produk</v-list-item-title>
             <v-list-item-subtitle>Kelompok J</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -35,8 +35,8 @@
         <v-card-text>
           <v-container>
             <v-text-field v-model="form.nama_barang" label="Nama Barang" required></v-text-field>
-            <v-text-field v-model="form.harga_barang" label="Harga Barang" required></v-text-field>
-            <v-text-field v-model="form.jumlah" label="Jumlah Barang" required></v-text-field>
+            <v-text-field prefix="$" v-model="form.harga_barang" label="Harga Barang" required></v-text-field>
+            <v-text-field v-model="form.jumlah" label="Jumlah" required suffix="Barang"></v-text-field>
             <v-text-field v-model="form.warna" label="Warna" required></v-text-field>
           </v-container>
         </v-card-text>
@@ -125,14 +125,14 @@ export default {
           this.products = response.data.data;
         });
     },
-
+// Tambah / jika tidak hosting
     save() {
       this.product.append("nama_barang", this.form.nama_barang);
       this.product.append("harga_barang", this.form.harga_barang);
       this.product.append("jumlah", this.form.jumlah);
       this.product.append("warna", this.form.warna);
 
-      var url = this.$api + "/product/";
+      var url = this.$api + "/product";
       this.load = true;
       this.$http
         .post(url, this.product, {

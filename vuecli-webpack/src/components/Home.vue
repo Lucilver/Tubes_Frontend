@@ -39,7 +39,7 @@
 
         <v-divider></v-divider>
 
-        <v-card-text class="black orange--text text-center"> {{ new Date().getFullYear() }} — <strong>Created by Alvin Cennanda | Frederik Grayfien Halim | Bernadeta Felicia Astrid</strong> </v-card-text>
+        <v-card-text class="black orange--text text-center"> {{ new Date().getFullYear() }} — <strong>Created by Alvin Cennanda | Frederik Grayfien Halim | Bernadeta Felicia Astrid | Satria Bagus Yudatama</strong> </v-card-text>
       </v-card>
     </v-footer>
   </main>

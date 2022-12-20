@@ -7,7 +7,7 @@
             <img src="https://cdn.create.vista.com/api/media/medium/471173820/stock-vector-ads-gold-plated-metalic-icon?token=" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="headline">Delivery</v-list-item-title>
+            <v-list-item-title class="headline">Pengiriman</v-list-item-title>
             <v-list-item-subtitle>Kelompok J</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -39,7 +39,8 @@
             <v-text-field v-model="form.jenisPengiriman" label="Jenis Pengiriman" required></v-text-field>
 
             <v-text-field v-model="form.lamaPengiriman" label="Lama Pengiriman" required></v-text-field>
-            <v-text-field v-model="form.harga" label="Harga" required></v-text-field>
+
+            <v-text-field prefix="$" v-model="form.harga" label="Harga" required></v-text-field>
           </v-container>
         </v-card-text>
 
@@ -134,7 +135,7 @@ export default {
       this.delivery.append("lamaPengiriman", this.form.lamaPengiriman);
       this.delivery.append("harga", this.form.harga);
 
-      var url = this.$api + "/delivery/";
+      var url = this.$api + "/delivery";
       this.load = true;
       this.$http
         .post(url, this.delivery, {
